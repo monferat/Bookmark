@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+
+  has_many :bookmarkers
+
   devise :omniauthable, omniauth_providers: [:facebook]
 
   def self.create_from_omniauth(params)
@@ -11,4 +12,5 @@ class User < ActiveRecord::Base
                 avatar: params.info.image)
     user
   end
+
 end
