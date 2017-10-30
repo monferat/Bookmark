@@ -1,0 +1,32 @@
+<%= form_for @bookmarker, :html => {:class => 'form-horizontal'} do |f| %>
+    <% if @bookmarker.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@bookmarker.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+          <ul>
+            <% @bookmarker.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <br>
+    <fieldset>
+      <div class="form-group">
+        <%= f.label :title , class: 'col-md-4 control-label', for: 'textinput' %>
+        <div class="col-md-4"><%= f.text_field :title, placeholder: 'title', class: 'form-control input-md' %></div>
+      </div>
+      <div class="form-group">
+        <%= f.label :url, class: 'col-md-4 control-label', for: 'textarea'%><br>
+        <div class="col-md-4"><%= f.text_area :url, class: 'form-control' %></div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="singlebutton"></label>
+        <div class="col-md-4">
+          <div class="actions">
+            <%= f.submit class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+<% end %>

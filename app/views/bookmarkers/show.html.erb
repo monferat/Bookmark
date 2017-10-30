@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 blog-main">
+      <div class="blog-post">
+        <p id="notice" role="alert"><%= notice %></p>
+        <p>
+          <strong>Title:</strong>
+        <h2 class="blog-post-title"><%= @bookmarker.title %></h2>
+        </p>
+
+        <p>
+          <strong>URL:</strong><br>
+          <%= @bookmarker.url %>
+        </p>
+
+        <p class="blog-post-meta">
+          <strong>Created by: </strong><%= @bookmarker.user.name %>
+        </p>
+      </div>
+      <% if @bookmarker.user.eql?(current_user) %>
+          <%= link_to 'Edit', edit_bookmarker_path(@bookmarker), :class => 'btn btn-default btn-sm' %>
+      <% end %>
+      <%= link_to 'Back', bookmarkers_path, :class => 'btn btn-default btn-sm' %>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="blog-header">
+    <p id="notice" role="alert"><%= notice %></p>
+  </div>
+
+  <%= link_to 'Main', root_path, :class => 'btn btn-default btn-sm' %>
+
+  <div class="title_bookmarks">
+    <h2>List of bookmarks</h2>
+  </div>
+  
+  <%= link_to 'New Bookmark', (new_bookmarker_path if current_user), class: 'btn btn-primary post' %>
+  
+  <div class="row text-center">
+    <%= render @bookmarkers%>
+  </div>
+</div>
+  
