@@ -2,7 +2,10 @@
   <div class="thumbnail">
 
     <h3><%= link_to bookmarker.title, bookmarker %></h3>
-    <%= truncate(bookmarker.url, length: 90) %>
+    <%= link_to truncate(bookmarker.url, length: 50), bookmarker.url %>
+    <div class="side-crop">
+      <%= image_tag bookmarker.snapshot.url, width: '300'%>
+    </div>
 
   </div>
   <% if bookmarker.user.eql?(current_user) %>

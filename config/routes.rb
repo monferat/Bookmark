@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :bookmarkers
 
+  # put 'bookmarkers/update_image/:id' => 'bookmarkers#update_image', as: :update_image
+
   devise_for :users, controllers: { omniauth_callbacks: 'auth/callbacks' }
 
   devise_scope :user do

@@ -1,5 +1,5 @@
 class BookmarkersController < ApplicationController
-  before_action :authenticate_user!, :set_bookmarker, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, :set_bookmarker, only: [:show, :edit, :update, :destroy, :update_image]
 
   def index
     @bookmarkers = Bookmarker.all
@@ -16,10 +16,10 @@ class BookmarkersController < ApplicationController
   def create
     @bookmarker = Bookmarker.new(bookmarker_params)
     @bookmarker.user = current_user if current_user
-
     respond_to do |format|
       if @bookmarker.save
-        format.html { redirect_to @bookmarker, notice: 'Bookmark was successfully created.'}
+        upload_image
+        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully created.'}
       else
         format.html { render :new }
       end
@@ -29,7 +29,7 @@ class BookmarkersController < ApplicationController
   def update
     respond_to do |format|
       if @bookmarker.update(bookmarker_params)
-        format.html { redirect_to @bookmarker, notice: 'Bookmarker was successfully updated.'}
+        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully updated.'}
       else
         format.html { render :edit }
       end
@@ -56,11 +56,24 @@ class BookmarkersController < ApplicationController
 
   private
 
+  def upload_image
+    html  = @bookmarker.url
+    kit   = IMGKit.new(html)
+    img   = kit.to_img(:png)
+    file  = Tempfile.new(["template_#{@bookmarker.id}", 'png'], 'tmp',
+                         :encoding => 'ascii-8bit')
+    file.write(img)
+    file.flush
+    @bookmarker.snapshot = file
+    @bookmarker.save
+    file.unlink
+  end
+
   def set_bookmarker
-    unless @bookmarker = Bookmarker.find(params[:id])
-      flash[:alert] = 'Bookmark not found.'
-      redirect_to root_path
-    end
+    @bookmarker = Bookmarker.find(params[:id])
+    return if @bookmarker.present?
+    flash[:alert] = 'Bookmark not found.'
+    redirect_to root_path
   end
 
   def bookmarker_params

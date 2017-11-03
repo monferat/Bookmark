@@ -10,8 +10,11 @@
 
         <p>
           <strong>URL:</strong><br>
-          <%= @bookmarker.url %>
+          <%= link_to @bookmarker.url, @bookmarker.url %>
         </p>
+        <div class="side-crop">
+          <%= image_tag @bookmarker.snapshot.url, width: '300'%>
+        </div>
 
         <p class="blog-post-meta">
           <strong>Created by: </strong><%= @bookmarker.user.name %>

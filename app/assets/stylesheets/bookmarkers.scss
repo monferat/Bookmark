@@ -1,3 +1,14 @@
 // Place all the styles related to the Bookmarkers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.side-crop {
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.side-crop img { max-width: initial; }
+
+.title_bookmarks {
+  text-align: center;
+}

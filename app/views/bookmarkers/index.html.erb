@@ -9,7 +9,7 @@
     <h2>List of bookmarks</h2>
   </div>
   
-  <%= link_to 'New Bookmark', (new_bookmarker_path if current_user), class: 'btn btn-primary post' %>
+  <%= link_to 'Add Bookmark', (new_bookmarker_path if current_user), class: 'btn btn-primary post' %>
   
   <div class="row text-center">
     <%= render @bookmarkers%>
