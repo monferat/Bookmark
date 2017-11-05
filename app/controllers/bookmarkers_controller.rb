@@ -2,7 +2,7 @@ class BookmarkersController < ApplicationController
   before_action :authenticate_user!, :set_bookmarker, only: [:show, :edit, :update, :destroy, :update_image]
 
   def index
-    @bookmarkers = Bookmarker.all
+    @bookmarkers = Bookmarker.order(:created_at).page params[:page]
   end
 
   def new
@@ -58,7 +58,7 @@ class BookmarkersController < ApplicationController
 
   def upload_image
     html  = @bookmarker.url
-    kit   = IMGKit.new(html)
+    kit   = IMGKit.new(html, quality: 50)
     img   = kit.to_img(:png)
     file  = Tempfile.new(["template_#{@bookmarker.id}", 'png'], 'tmp',
                          :encoding => 'ascii-8bit')
