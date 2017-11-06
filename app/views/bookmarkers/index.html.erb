@@ -10,7 +10,17 @@
   </div>
   
   <%= link_to 'Add Bookmark', (new_bookmarker_path if current_user), class: 'btn btn-primary post' %>
-  
+
+  <%= form_tag(bookmarkers_path, method: :get, role: 'form') do %>
+      <div class='row'>
+        <div class="form-group col-xs-6 col-md-4">
+          <%= text_field_tag :term, params[:term], placeholder: 'Type search here', class: 'form-control' %>
+          <br>
+          <%= submit_tag 'Search', class: "btn btn-primary" %>
+        </div>
+      </div>
+  <% end %>
+
   <div class="row text-center">
     <%= render @bookmarkers%>
   </div>

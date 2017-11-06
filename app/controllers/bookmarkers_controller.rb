@@ -1,8 +1,14 @@
 class BookmarkersController < ApplicationController
-  before_action :authenticate_user!, :set_bookmarker, only: [:show, :edit, :update, :destroy, :update_image]
+  before_action :authenticate_user!, :set_bookmarker, only: %i[show edit update destroy update_image]
 
   def index
-    @bookmarkers = Bookmarker.order(:created_at).page params[:page]
+    @bookmarkers = if params[:term] && !params[:term].blank?
+                     Bookmarker.search_by_title_and_url(params[:term])
+                   else
+                     Bookmarker.all
+                   end
+
+    @bookmarkers = @bookmarkers.order(:created_at).page params[:page]
   end
 
   def new
@@ -19,7 +25,7 @@ class BookmarkersController < ApplicationController
     respond_to do |format|
       if @bookmarker.save
         upload_image
-        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully created.'}
+        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully created.' }
       else
         format.html { render :new }
       end
@@ -29,15 +35,14 @@ class BookmarkersController < ApplicationController
   def update
     respond_to do |format|
       if @bookmarker.update(bookmarker_params)
-        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully updated.'}
+        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully updated.' }
       else
         format.html { render :edit }
       end
     end
   end
 
-  def show
-  end
+  def show; end
 
   def edit
     redirect_to root_path unless @bookmarker.user.eql?(current_user)
@@ -47,7 +52,7 @@ class BookmarkersController < ApplicationController
     if @bookmarker.user.eql?(current_user)
       @bookmarker.destroy
       respond_to do |format|
-        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully destroyed.'}
+        format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully destroyed.' }
       end
     else
       redirect_to root_path
@@ -61,7 +66,7 @@ class BookmarkersController < ApplicationController
     kit   = IMGKit.new(html, quality: 50)
     img   = kit.to_img(:png)
     file  = Tempfile.new(["template_#{@bookmarker.id}", 'png'], 'tmp',
-                         :encoding => 'ascii-8bit')
+                         encoding: 'ascii-8bit')
     file.write(img)
     file.flush
     @bookmarker.snapshot = file
@@ -79,5 +84,4 @@ class BookmarkersController < ApplicationController
   def bookmarker_params
     params.require(:bookmarker).permit(:title, :url)
   end
-
 end
