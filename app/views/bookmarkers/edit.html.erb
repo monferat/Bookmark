@@ -1,6 +1,8 @@
-<h1>Edit bookmark</h1>
+<div class="col-xl-12 offset-lg-3">
+  <h2>Edit bookmark</h2>
 
-<%= render 'form' %>
+  <%= render 'form' %>
 
-<span aria-hidden="true">&larr;</span><%= link_to 'Back', bookmarkers_path, :class => 'btn btn-default btn-sm' %>
-<%= link_to 'Show', @bookmarker, :class => 'btn btn-default btn-sm' %>
+  <span aria-hidden="true">&larr;</span><%= link_to 'Back', bookmarkers_path, :class => 'btn btn-info' %>
+  <%= link_to 'Show', @bookmarker, :class => 'btn btn-default btn-sm' %>
+</div>

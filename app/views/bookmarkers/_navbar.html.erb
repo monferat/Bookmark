@@ -1,0 +1,24 @@
+<%= render 'home/user' %>
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">My bookmarks</h1>
+    <p>
+      <%= link_to 'Add Bookmark', (new_bookmarker_path if current_user), class: 'btn btn-primary btn-lg' %>
+    </p>
+  </div>
+</section>
+
+<%= form_tag(bookmarkers_path, method: :get, role: 'form') do %>
+    <div class='row'>
+      <div class="col-lg-6 offset-lg-3">
+        <div class="input-group">
+          <%= text_field_tag :term, params[:term], placeholder: 'Search for...', class: 'form-control' %>
+          <span class="input-group-btn">
+            <%= submit_tag 'Search', class: 'btn btn-secondary' %>
+          </span>
+        </div>
+      </div>
+    </div>
+<% end %>
+</br>

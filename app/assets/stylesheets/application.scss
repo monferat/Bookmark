@@ -12,8 +12,25 @@
  *
  */
 
-@import "bootstrap-sprockets";
+//@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "login";
 @import "user";
 @import "bookmarkers";
+
+.jumbotron {
+  padding: 1rem;
+}
+
+div.card {
+  border-radius: 15px;
+}
+
+div.card-deck {
+  margin-bottom: 15px;
+}
+
+div.container {
+  max-width: 1310px;
+  margin-bottom: 20px;
+}

@@ -1,23 +1,15 @@
-<div class="row">
-  <div class="col-xs-6 col-xs-offset-3">
-    <div class="row user">
-      <div class="col-xs-2">
-        <%= image_tag current_user.avatar, class: "img-responsive img-circle"%>
+<header>
+  <div class="navbar navbar-dark bg-dark">
+    <div class="container d-flex justify-content-between">
+      <div class="navbar-brand">
+          <div>
+            <%= image_tag current_user.avatar, class: "img-responsive img-circle"%>
+          </div>
+          <div>
+            <%= current_user.name %>
+          </div>
       </div>
-      <div class="col-xs-10">
-        <span class="user_name">
-          <%= current_user.name %>
-        </span>
-        <span class="user_bookmarks">
-          <%= link_to 'Bookmarks', bookmarkers_path, :class => 'btn btn-default btn-sm' %>
-        </span><br>
-        <span class="user_email">
-          <%= current_user.email %>
-        </span>
-        <span class="user_logout">
-          <%= link_to "Logout", destroy_user_session_url, method: :delete %>
-        </span>
-      </div>
+        <%= link_to "Logout", destroy_user_session_url, method: :delete, :class => 'btn btn-secondary' %>
     </div>
   </div>
-</div>
+</header>

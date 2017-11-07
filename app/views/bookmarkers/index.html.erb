@@ -1,31 +1,19 @@
-<div class="container">
-  <div class="blog-header">
-    <p id="notice" role="alert"><%= notice %></p>
-  </div>
+<% if user_signed_in? %>
+  <main role="main">
 
-  <%= link_to 'Main', root_path, :class => 'btn btn-default btn-sm' %>
+    <%= render 'navbar'%>
 
-  <div class="title_bookmarks">
-    <h2>List of bookmarks</h2>
-  </div>
-  
-  <%= link_to 'Add Bookmark', (new_bookmarker_path if current_user), class: 'btn btn-primary post' %>
-
-  <%= form_tag(bookmarkers_path, method: :get, role: 'form') do %>
-      <div class='row'>
-        <div class="form-group col-xs-6 col-md-4">
-          <%= text_field_tag :term, params[:term], placeholder: 'Type search here', class: 'form-control' %>
-          <br>
-          <%= submit_tag 'Search', class: "btn btn-primary" %>
+    <div class="album text-muted">
+      <div class="container">
+        <div class="row">
+        <%= render @bookmarkers%>
         </div>
       </div>
-  <% end %>
+    </div>
 
-  <div class="row text-center">
-    <%= render @bookmarkers%>
-  </div>
+    <%= paginate @bookmarkers %>
 
-  <%= paginate @bookmarkers %>
-
-</div>
-  
+  </main>
+<% else %>
+    <%= render 'home/login' %>
+<% end %>

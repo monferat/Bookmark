@@ -51,6 +51,10 @@ GEM
       aws-sdk-core (= 2.3.22)
     bcrypt (3.1.11)
     bindex (0.5.0)
+    bootstrap (4.0.0.beta2.1)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.3, < 2)
+      sass (>= 3.5.2)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -172,6 +176,7 @@ GEM
       activerecord (>= 4.2)
       activesupport (>= 4.2)
       arel (>= 6)
+    popper_js (1.12.5)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -266,7 +271,8 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 2.3.0)
-  bootstrap-sass (~> 3.3.6)
+  bootstrap (~> 4.0.0.beta2.1)
+  bootstrap-sass (~> 3.3.7)
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)

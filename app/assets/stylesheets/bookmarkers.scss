@@ -5,6 +5,7 @@
 .side-crop {
   max-height: 300px;
   overflow: hidden;
+  border-radius: 15px 15px 0 0;
 }
 
 .side-crop img { max-width: initial; }
