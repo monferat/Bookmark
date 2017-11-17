@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Web Page Bookmarks App
 
-Things you may want to cover:
+* Ruby version - 2.4.2
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
+* Rails version - 5.1.4
 
 * Database creation
+* - rake db:create
+* - rake db:migrate
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Services (Facebook API, PG_Search, Devise, Kaminari)
