@@ -2,13 +2,20 @@ class BookmarkersController < ApplicationController
   before_action :authenticate_user!, :set_bookmarker, only: %i[show edit update destroy update_image]
 
   def index
+    @bookmarkers = Bookmarker.all
+    @bookmarkers = current_user.bookmarkers if current_user
     @bookmarkers = if params[:term] && !params[:term].blank?
-                     Bookmarker.search_by_title_and_url(params[:term])
+                     @bookmarkers.search_by_title_and_url(params[:term])
                    else
-                     Bookmarker.all
+                     @bookmarkers
                    end
-    @bookmarkers = current_user.bookmarkers
-    @bookmarkers = @bookmarkers.order(:created_at).page params[:page]
+
+    @bookmarkers = @bookmarkers.order(:created_at ).page(params[:page]).per(params[:limit])
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
@@ -17,25 +24,25 @@ class BookmarkersController < ApplicationController
     else
       redirect_to root_path
     end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def create
-    @bookmarker = Bookmarker.new(bookmarker_params)
+    @bookmarker = Bookmarker.create(bookmarker_params)
     @bookmarker.user = current_user if current_user
 
-    ws = Webshot::Screenshot.instance
-    ws.capture @bookmarker.url, 'tmp/webshot.png', width: 300, height: 300
-    f = File.open('tmp/webshot.png', 'r')
-
-    @bookmarker.snapshot = f
-    # upload_image
     respond_to do |format|
       if @bookmarker.save
-        # upload_image
+        webshot_upload_image
         format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully created.' }
       else
-        format.html { render :new }
+        format.html
       end
+      format.js
     end
   end
 
@@ -44,15 +51,19 @@ class BookmarkersController < ApplicationController
       if @bookmarker.update(bookmarker_params)
         format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully updated.' }
       else
-        format.html { render :edit }
+        format.html
       end
+      format.js
     end
   end
 
-  def show; end
-
   def edit
     redirect_to root_path unless @bookmarker.user.eql?(current_user)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def destroy
@@ -78,6 +89,15 @@ class BookmarkersController < ApplicationController
     file.flush
     @bookmarker.snapshot = file
     file.unlink
+  end
+
+  def webshot_upload_image
+    ws = Webshot::Screenshot.instance
+    ws.capture @bookmarker.url, 'tmp/webshot.png', width: 300, height: 300
+    tmp_file = File.open('tmp/webshot.png', 'r')
+    @bookmarker.snapshot = tmp_file
+    tmp_file.close
+    @bookmarker.save
   end
 
   def set_bookmarker

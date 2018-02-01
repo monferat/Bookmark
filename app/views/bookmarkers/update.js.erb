@@ -1,0 +1,6 @@
+<% if @bookmarker.errors.blank? %>
+$('#modal-window').modal('hide');
+location.reload();
+<% else %>
+$("#error_explanation").html("<%= j render 'error' %>");
+<% end %>

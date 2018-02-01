@@ -2,10 +2,12 @@
 
 <section class="jumbotron text-center">
   <div class="container">
-    <h1 class="jumbotron-heading">My bookmarks</h1>
-    <p>
-      <%= link_to 'Add Bookmark', (new_bookmarker_path if current_user), class: 'btn btn-primary btn-lg' %>
-    </p>
+    <%= link_to 'Add Bookmark',
+                (new_bookmarker_path if current_user),
+                class: 'btn btn-primary btn-lg',
+                remote: true,
+                'data-toggle' => "modal",
+                'data-target' => '#modal-window' %>
   </div>
 </section>
 

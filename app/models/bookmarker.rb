@@ -10,6 +10,8 @@ class Bookmarker < ApplicationRecord
   validates :title, presence: true, uniqueness: true, length: { in: 3..50 }
   validates :url, format: { with: Regexp.new(URI.regexp(%w[http https])) }, presence: true
 
+  default_scope { order(created_at: :desc) }
+
   pg_search_scope :search_by_title_and_url, against: %i[title url],
                                             using: {
                                               tsearch: {
