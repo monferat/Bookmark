@@ -22,9 +22,16 @@ class BookmarkersController < ApplicationController
   def create
     @bookmarker = Bookmarker.new(bookmarker_params)
     @bookmarker.user = current_user if current_user
+
+    ws = Webshot::Screenshot.instance
+    ws.capture @bookmarker.url, 'tmp/webshot.png', width: 300, height: 300
+    f = File.open('tmp/webshot.png', 'r')
+
+    @bookmarker.snapshot = f
+    # upload_image
     respond_to do |format|
       if @bookmarker.save
-        upload_image
+        # upload_image
         format.html { redirect_to bookmarkers_url, notice: 'Bookmark was successfully created.' }
       else
         format.html { render :new }
@@ -63,14 +70,13 @@ class BookmarkersController < ApplicationController
 
   def upload_image
     html  = @bookmarker.url
-    kit   = IMGKit.new(html, quality: 50)
+    kit   = IMGKit.new(html, height: 900, quality: 50)
     img   = kit.to_img(:png)
     file  = Tempfile.new(["template_#{@bookmarker.id}", 'png'], 'tmp',
                          encoding: 'ascii-8bit')
     file.write(img)
     file.flush
     @bookmarker.snapshot = file
-    @bookmarker.save
     file.unlink
   end
 
