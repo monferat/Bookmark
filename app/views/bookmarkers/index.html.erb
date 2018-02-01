@@ -1,27 +1,29 @@
-<% if user_signed_in? %>
-    <main role="main">
+<div class="container-fluid">
+  <% if user_signed_in? %>
+      <main role="main">
 
-      <%= render 'navbar'%>
+        <%= render 'navbar'%>
 
-      <div>
-        <%= form_tag bookmarkers_path, method: :get, id: 'limit_form', remote: true do %>
+        <div>
+          <%= form_tag bookmarkers_path, method: :get, id: 'limit_form', remote: true do %>
 
-            <div class="select-tag">
-              Show
-              <%= select_tag :limit,
-                             options_for_select([6, 12, 15, 18], selected: params[:limit] || 12),
-                             class: 'custom-select',
-                             onchange: "$('#limit_form').submit();" %>
-              items per page
-            </div>
+              <div id="select-cards" class="select-tag">
+                Show
+                <%= select_tag :limit,
+                               options_for_select([6, 12, 15, 18], selected: params[:limit] || 12),
+                               class: 'custom-select',
+                               onchange: "$('#limit_form').submit();" %>
+                items per page
+              </div>
 
-            <div id="bookmarkers_cards">
-              <%= render 'bookmarkers_cards'%>
-            </div>
-        <% end %>
-      </div>
+              <div id="bookmarkers_cards">
+                <%= render 'bookmarkers_cards'%>
+              </div>
+          <% end %>
+        </div>
 
-    </main>
-<% else %>
-    <%= render 'home/login' %>
-<% end %>
+      </main>
+  <% else %>
+      <%= render 'home/login' %>
+  <% end %>
+</div>
