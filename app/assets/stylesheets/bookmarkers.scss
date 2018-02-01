@@ -13,3 +13,12 @@
 .title_bookmarks {
   text-align: center;
 }
+h6.card-title {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+div.card {
+  margin-bottom: 1rem;
+}

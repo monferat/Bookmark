@@ -1,0 +1,10 @@
+<h1><%= @num %></h1>
+<div class="album text-muted">
+  <div class="container">
+    <div class="row">
+      <%= render @bookmarkers%>
+    </div>
+  </div>
+</div>
+
+<%= paginate @bookmarkers %>

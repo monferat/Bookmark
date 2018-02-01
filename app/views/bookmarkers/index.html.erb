@@ -1,19 +1,27 @@
 <% if user_signed_in? %>
-  <main role="main">
+    <main role="main">
 
-    <%= render 'navbar'%>
+      <%= render 'navbar'%>
 
-    <div class="album text-muted">
-      <div class="container">
-        <div class="row">
-        <%= render @bookmarkers%>
-        </div>
+      <div>
+        <%= form_tag bookmarkers_path, method: :get, id: 'limit_form', remote: true do %>
+
+            <div class="select-tag">
+              Show
+              <%= select_tag :limit,
+                             options_for_select([6, 12, 15, 18], selected: params[:limit] || 12),
+                             class: 'custom-select',
+                             onchange: "$('#limit_form').submit();" %>
+              items per page
+            </div>
+
+            <div id="bookmarkers_cards">
+              <%= render 'bookmarkers_cards'%>
+            </div>
+        <% end %>
       </div>
-    </div>
 
-    <%= paginate @bookmarkers %>
-
-  </main>
+    </main>
 <% else %>
     <%= render 'home/login' %>
 <% end %>

@@ -2,7 +2,7 @@ class Bookmarker < ApplicationRecord
   include PgSearch
 
   has_attached_file :snapshot, styles: { medium: '200x200>' }, default_url: '/images/missing.png'
-  validates_attachment :snapshot, content_type: { content_type: ['image/jpg', 'image/jpeg', 'image/png'] }
+  validates_attachment :snapshot, content_type: { content_type: %w[image/jpg image/jpeg image/png] }
 
   belongs_to :user
 

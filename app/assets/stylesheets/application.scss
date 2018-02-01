@@ -19,9 +19,14 @@
 @import "bookmarkers";
 
 .jumbotron {
-  padding: 1rem;
+  padding: 1rem 1rem 0rem 1rem;
+  background-color: white;
 }
 
+h1.jumbotron-heading {
+  display: inline-flex;
+  margin-left: 16rem;
+}
 div.card {
   border-radius: 15px;
 }
