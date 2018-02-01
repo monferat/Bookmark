@@ -7,7 +7,7 @@ class BookmarkersController < ApplicationController
                    else
                      Bookmarker.all
                    end
-
+    @bookmarkers = current_user.bookmarkers
     @bookmarkers = @bookmarkers.order(:created_at).page params[:page]
   end
 
