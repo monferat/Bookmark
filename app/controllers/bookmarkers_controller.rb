@@ -1,5 +1,6 @@
 class BookmarkersController < ApplicationController
-  before_action :authenticate_user!, :set_bookmarker, only: %i[show edit update destroy]
+  before_action :authenticate_user!
+  before_action :set_bookmarker, only: %i[show edit update destroy]
 
   def index
     @usr = params[:uid] ? User.find_by_uid(params[:uid]) : current_user
@@ -79,13 +80,9 @@ class BookmarkersController < ApplicationController
   end
 
   def friends_list
-    if user_signed_in?
-      if current_user
-        list = Facebook.friends_list(current_user.token)
-        @friends = list.map { |f| User.find_by_uid(f["id"]) }
-      end
-    else
-      redirect_to 'home/login'
+    if current_user
+      list = Facebook.friends_list(current_user.token)
+      @friends = list.map { |f| User.find_by_uid(f["id"]) }
     end
   end
 
