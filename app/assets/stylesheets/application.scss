@@ -20,17 +20,18 @@
 
 #main-title {
   color: white;
+  text-decoration: none;
 }
 
 .jumbotron {
   padding: 1rem 1rem 0rem 1rem;
   background-color: white;
-  margin-bottom: 0rem;
+  margin-bottom: 2rem;
 }
 
 h1.jumbotron-heading {
   display: inline-flex;
-  margin-left: 16rem;
+  margin-left: 16.5rem;
 }
 div.card {
   border-radius: 15px;
@@ -42,13 +43,4 @@ div.card-deck {
 
 div.container {
   max-width: 1310px;
-}
-
-.friends-title {
-  text-align: center;
-  padding: 1rem;
-}
-
-#friends-list {
-  margin-right: 55rem;
 }
