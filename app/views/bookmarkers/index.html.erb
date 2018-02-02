@@ -1,16 +1,19 @@
 <div class="container-fluid">
   <% if user_signed_in? %>
       <main role="main">
-
-        <%= render 'navbar'%>
-
+        <%= render 'home/user' %>
+        <% if current_user.uid == params[:uid] %>
+            <%= render 'navbar'  %>
+        <% else %>
+            <div class="friends-title"><h2><%= @usr.name %>'s  bookmarks</h2></div>
+        <% end %>
         <div>
-          <%= form_tag bookmarkers_path, method: :get, id: 'limit_form', remote: true do %>
+          <%= form_tag bookmarkers_path(uid: params[:uid]), method: :get, id: 'limit_form', remote: true do %>
 
               <div id="select-cards" class="select-tag">
                 Show
                 <%= select_tag :limit,
-                               options_for_select([6, 12, 15, 18], selected: params[:limit] || 12),
+                               options_for_select([8, 12, 16, 20], selected: params[:limit] || 12),
                                class: 'custom-select',
                                onchange: "$('#limit_form').submit();" %>
                 items per page

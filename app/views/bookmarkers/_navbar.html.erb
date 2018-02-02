@@ -1,5 +1,4 @@
 <%= render 'home/user' %>
-
 <section class="jumbotron text-center">
   <div class="container">
     <%= link_to 'Add Bookmark',
@@ -10,6 +9,8 @@
                 'data-target' => '#modal-window' %>
   </div>
 </section>
+
+<div id="friends-button"><%= link_to 'Friends bookmarks', friends_list_url, :class => 'btn btn-success btn-lg' %></div>
 
 <%= form_tag(bookmarkers_path, method: :get, role: 'form') do %>
     <div class='row'>

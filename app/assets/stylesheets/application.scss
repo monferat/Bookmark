@@ -18,9 +18,14 @@
 @import "user";
 @import "bookmarkers";
 
+#main-title {
+  color: white;
+}
+
 .jumbotron {
   padding: 1rem 1rem 0rem 1rem;
   background-color: white;
+  margin-bottom: 0rem;
 }
 
 h1.jumbotron-heading {
@@ -37,5 +42,13 @@ div.card-deck {
 
 div.container {
   max-width: 1310px;
-  margin-bottom: 20px;
+}
+
+.friends-title {
+  text-align: center;
+  padding: 1rem;
+}
+
+#friends-list {
+  margin-right: 55rem;
 }

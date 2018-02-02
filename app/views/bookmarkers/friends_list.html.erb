@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <main role="main">
+    <%= render 'home/user' %>
+
+    <div class="friends-title"><h2>Friends bookmarks</h2></div>
+    <div>
+      <ul id="friends-list" class="list-group">
+        <% if @friends.any? %>
+            <div>
+              <% @friends.each do |f| %>
+                  <li class="list-group-item">
+                    <%= image_tag f.avatar, class: 'rounded-circle'%>
+                    <%= link_to f.name, bookmarkers_path(uid: f.uid) %>
+                  </li>
+                  </div>
+              <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </main>
+</div>

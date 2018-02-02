@@ -1,16 +1,17 @@
 class BookmarkersController < ApplicationController
-  before_action :authenticate_user!, :set_bookmarker, only: %i[show edit update destroy update_image]
+  before_action :authenticate_user!, :set_bookmarker, only: %i[show edit update destroy]
 
   def index
-    @bookmarkers = Bookmarker.all
-    @bookmarkers = current_user.bookmarkers if current_user
+    @usr = params[:uid] ? User.find_by_uid(params[:uid]) : current_user
+
+    @bookmarkers = @usr.bookmarkers
     @bookmarkers = if params[:term] && !params[:term].blank?
                      @bookmarkers.search_by_title_and_url(params[:term])
                    else
                      @bookmarkers
                    end
 
-    @bookmarkers = @bookmarkers.order(:created_at ).page(params[:page]).per(params[:limit])
+    @bookmarkers = @bookmarkers.order(:created_at).page(params[:page]).per(params[:limit])
 
     respond_to do |format|
       format.html
@@ -77,19 +78,18 @@ class BookmarkersController < ApplicationController
     end
   end
 
-  private
-
-  def upload_image
-    html  = @bookmarker.url
-    kit   = IMGKit.new(html, height: 900, quality: 50)
-    img   = kit.to_img(:png)
-    file  = Tempfile.new(["template_#{@bookmarker.id}", 'png'], 'tmp',
-                         encoding: 'ascii-8bit')
-    file.write(img)
-    file.flush
-    @bookmarker.snapshot = file
-    file.unlink
+  def friends_list
+    if user_signed_in?
+      if current_user
+        list = Facebook.friends_list(current_user.token)
+        @friends = list.map { |f| User.find_by_uid(f["id"]) }
+      end
+    else
+      redirect_to 'home/login'
+    end
   end
+
+  private
 
   def webshot_upload_image
     ws = Webshot::Screenshot.instance

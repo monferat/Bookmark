@@ -8,10 +8,9 @@
         <div class="user_name">
           <%= current_user.name %>
         </div>
-        <h1 class="jumbotron-heading">My bookmarks</h1>
+        <h1 class="jumbotron-heading"><%= link_to 'Bookmarks', bookmarkers_url(uid: current_user.uid), :id => 'main-title' %></h1>
       </div>
       <%= link_to 'Logout', destroy_user_session_url, method: :delete, :class => 'btn btn-secondary' %>
     </div>
   </div>
 </header>
-

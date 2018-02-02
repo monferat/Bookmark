@@ -7,5 +7,9 @@ class Facebook
     def get_object(token, id, args = {}, options = {}, &block)
       fbgraph(token).get_object(id, args, options, &block)
     end
+
+    def friends_list(token)
+      fbgraph(token).get_connection("me", "friends")
+    end
   end
 end

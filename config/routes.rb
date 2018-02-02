@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :bookmarkers
 
+  get 'friends_list', to: 'bookmarkers#friends_list'
+
   devise_for :users, controllers: { omniauth_callbacks: 'auth/callbacks' }
 
   devise_scope :user do
