@@ -1,7 +1,9 @@
-<div class="container-fluid">
-  <% if user_signed_in? %>
+<% if user_signed_in? %>
+    <%= render 'home/user' %>
+    <div class="container-fluid">
+
       <main role="main">
-        <%= render 'home/user' %>
+
         <% if current_user.uid == params[:uid] %>
             <%= render 'navbar'  %>
         <% else %>
@@ -13,7 +15,7 @@
               <div id="select-cards" class="select-tag">
                 Show
                 <%= select_tag :limit,
-                               options_for_select([8, 12, 16, 20], selected: params[:limit] || 12),
+                               options_for_select([4, 8, 12, 16, 20], selected: params[:limit] || 8),
                                class: 'custom-select',
                                onchange: "$('#limit_form').submit();" %>
                 items per page
@@ -26,7 +28,7 @@
         </div>
 
       </main>
-  <% else %>
-      <%= render 'home/login' %>
-  <% end %>
+<% else %>
+    <%= render 'home/login' %>
+<% end %>
 </div>

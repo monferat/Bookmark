@@ -1,6 +1,6 @@
-<section class="jumbotron text-center">
+<section class="jumbotron">
   <div id="friends-button"><%= link_to 'Friends bookmarks', friends_list_url, :class => 'btn btn-success btn-lg' %></div>
-  <div class="container">
+  <div id="add-button">
     <%= link_to 'Add Bookmark',
                 (new_bookmarker_path if current_user),
                 class: 'btn btn-primary btn-lg',

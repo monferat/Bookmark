@@ -38,11 +38,16 @@ div#error_explanation {
 }
 
 #friends-list {
-  margin-right: 55rem;
+  max-width: 500px;
 }
 
 #friends-button {
-  position: absolute;
+  display: inline;
+  margin-right: 35%
+}
+
+#add-button {
+  display: inline;
 }
 
 .card-title {
