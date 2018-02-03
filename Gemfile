@@ -42,7 +42,7 @@ gem 'omniauth-facebook', '~> 4.0.0'
 
 gem 'aws-sdk', '~> 2.3.0'
 gem 'imgkit', '~> 1.6', '>= 1.6.1'
-gem 'paperclip', '~> 5.0.0'
+gem 'paperclip', '~> 5.2.1'
 gem 'wkhtmltoimage-binary', '~> 0.12.4'
 
 gem 'kaminari'
