@@ -12,6 +12,8 @@ class Bookmarker < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
 
+  scope :search_like, ->(term) { where('title ILIKE ? OR url ILIKE ?', "%#{term}%", "%#{term}%") }
+
   pg_search_scope :search_by_title_and_url, against: %i[title url],
                                             using: {
                                               tsearch: {

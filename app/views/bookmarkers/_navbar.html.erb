@@ -15,7 +15,7 @@
       <div class="col-lg-6 offset-lg-3">
         <div class="input-group">
           <%= text_field_tag :term, params[:term], placeholder: 'Search for...', class: 'form-control' %>
-          <%= hidden_field_tag :uid, current_user.uid, class: 'form-control' %>
+          <%= hidden_field_tag :uid, params[:uid], class: 'form-control' %>
           <span class="input-group-btn">
             <%= submit_tag 'Search', class: 'btn btn-secondary' %>
           </span>

@@ -7,7 +7,7 @@ class BookmarkersController < ApplicationController
 
     @bookmarkers = @usr.bookmarkers
     @bookmarkers = if params[:term] && !params[:term].blank?
-                     @bookmarkers.search_by_title_and_url(params[:term])
+                     @bookmarkers.search_like(params[:term])
                    else
                      @bookmarkers
                    end
